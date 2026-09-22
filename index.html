@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<!-- 모바일에서 화면이 작게 축소되는 것을 방지하는 필수 태그 -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>도리는 어디에</title>
+<style>
+    /* 전체 화면 중앙 정렬 및 배경 레이아웃 */
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        font-family: sans-serif;
+        background-color: #f5f5f5;
+    }
+
+    /* 컨테이너 스타일 (입력창과 버튼을 감싸는 박스) */
+    .container {
+        display: flex;
+        gap: 10px;
+        width: 90%; /* 모바일 화면 좌우 여백 확보 */
+        max-width: 400px; /* PC에서 지나치게 커지는 것 방지 */
+    }
+
+    /* 입력 칸 확대 및 모바일 터치 최적화 */
+    input[type="text"] {
+        flex: 2; /* 버튼보다 넓은 비율 차지 */
+        padding: 16px; /* 안쪽 여백을 넓혀 터치 영역 확대 */
+        font-size: 18px; /* 모바일에서 자동 줌인 현상 방지 (16px 이상 필수) */
+        border: 2px solid #ccc;
+        border-radius: 8px; /* 부드러운 라운드 처리 */
+        box-sizing: border-box;
+        outline: none;
+    }
+
+    input[type="text"]:focus {
+        border-color: #007bff; /* 포커스 시 파란색 테두리 */
+    }
+
+    /* 버튼 확대 및 스타일링 */
+    button {
+        flex: 1; /* 입력창 옆에 적절한 크기로 배치 */
+        padding: 16px;
+        font-size: 18px;
+        font-weight: bold;
+        color: white;
+        background-color: #007bff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    button:active {
+        background-color: #0056b3; /* 터치했을 때 어두워지는 효과 */
+    }
+</style>
+</head>
+<body>
+
+    <div class="container">
+        <input type="text" id="numInput" placeholder="도리 입력" maxlength="7" inputmode="numeric">
+        <button onclick="goToUrl()">Go</button>
+    </div>
+
+    <script>
+        function goToUrl() {
+    // 입력값 가져오기 및 양끝 공백 제거
+    const inputVal = document.getElementById('numInput').value.trim();
+    
+    // 숫자로만 이루어진 7자리 문자열인지 확인
+    const isSevenDigits = /^\d{7}$/.test(inputVal);
+
+    if (isSevenDigits) {
+        const baseUrl = "https://hitomi.la/reader/";
+        // 뒤에 .html을 결합하여 이동
+        window.location.href = baseUrl + inputVal + ".html";
+    } else {
+        alert("정확한 도리를 입력해주세요.");
+    }
+}
+
+    </script>
+</body>
+</html>
